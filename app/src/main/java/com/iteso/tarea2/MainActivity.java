@@ -1,5 +1,6 @@
 package com.iteso.tarea2;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
 
     SectionsPagerAdapter mSectionsPagerAdapter;
+    FragmentTechnology fragmentTechnology;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,22 +82,25 @@ public class MainActivity extends AppCompatActivity {
             super(fm);
         }
 
+
         @Override
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return new FragmentTechnology();
+                    if(fragmentTechnology == null){
+                        fragmentTechnology = new FragmentTechnology();
+                    }
+                    return fragmentTechnology;
                 case 1:
                     return new FragmentHome();
                 case 2:
-                     return new FragmentElectronics();
+                    return new FragmentElectronics();
                 default:
-                   // return new ItemProduct.FragmentTechnology();
                     return new FragmentTechnology();
             }
-        }
+        };
 
-        ;
+
 
         @Override
         public int getCount() {
@@ -117,6 +122,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == 1){
+            if(resultCode == Activity.RESULT_OK){
+                fragmentTechnology.onActivityResult(requestCode, resultCode, data);
+            }
+        }
+    }
+
+
 /*
       @Override
       public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -125,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
             return rootView;
         }
 */
-
 
 }
 

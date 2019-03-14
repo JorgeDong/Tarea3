@@ -48,6 +48,8 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHold
         public ImageView mProductImage;
         public ImageView mProductThumbnail;
         public RelativeLayout mEventLayout;
+        public Button cancel;
+        public Button save;
 
         public ViewHolder(View v) {
             super(v);
@@ -60,6 +62,9 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHold
             mProductPhone = (TextView) v.findViewById(R.id.item_product_phone);
             mProductImage = (ImageView) v.findViewById(R.id.item_product_image);
             mProductThumbnail = (ImageView) v.findViewById(R.id.item_product_thumbnail);
+            save = (Button)v.findViewById(R.id.activity_product_save);
+            cancel = (Button)v.findViewById(R.id.activity_product_cancel);
+
         }
     }
 
@@ -91,6 +96,7 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHold
             }
         });
         // Toast de toda la Pantalla
+        /*
         holder.mEventLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,6 +104,8 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHold
                         Toast.LENGTH_LONG).show();
             }
         });
+
+        */
 
         holder.mProductPhone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +115,20 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHold
                 context.startActivity(intent);
             }
         });
+
+        holder.mEventLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ActivityProduct.class);
+                intent.putExtra("ITEM", mDataSet.get(position));
+                context.startActivity(intent);
+            }
+        });
+
+
+
+
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -114,8 +136,4 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHold
     public int getItemCount() {
         return mDataSet.size();
     }
-
-
-
-
 }
